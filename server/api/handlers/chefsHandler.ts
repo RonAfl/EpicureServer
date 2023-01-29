@@ -6,6 +6,11 @@ export default class chefsHandler {
     return chefsModel.find({isDeleted:false});
   }
 
+  getWeekChef =() => {
+    return chefsModel.find({isDeleted:false, weekChef:true});
+  }
+
+
   getChefById = (id: any) => {
     return chefsModel.findById(id);
   }
@@ -13,9 +18,12 @@ export default class chefsHandler {
   postChef = (newChef: any) => {
     newChef.save();
   }
-
-  updateChefNameById = (id: string, chef_name: string) => {
-    chefsModel.findByIdAndUpdate({ _id: id }, { name: chef_name }, { new: true }).exec(); 
+  //description, image, weekChef
+  updateChefNameById = async (id: string, _name: string, _description:string, _image:string, _weekChef:boolean) => {
+    if(_weekChef===true){
+    await chefsModel.findOneAndUpdate({ isDeleted:false, weekChef:true }, { weekChef: false }, { new: true }).exec();  
+    }
+    await chefsModel.findByIdAndUpdate({ _id: id }, { name: _name, description:_description, image:_image, weekChef:_weekChef }, { new: true }).exec(); 
   }
 
   deleteById = (id: string) => {

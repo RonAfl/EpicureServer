@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const DishesSchema = new mongoose.Schema({
     name: { type: String, required: true },
+    image: { type: String, required: true },
     price: { type: Number, required: true },
     ingredients: { type: String, require: true },
     tags: { type: String, require: true },
@@ -9,4 +10,5 @@ const DishesSchema = new mongoose.Schema({
     isDeleted: { type: Boolean, default: false }
 });
 
-export default mongoose.model('Dishes', DishesSchema);
+
+export default mongoose.model('dishes', DishesSchema);

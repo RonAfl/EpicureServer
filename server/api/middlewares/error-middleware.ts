@@ -1,4 +1,3 @@
-import { NextFunction } from "express";
 import { MongooseError } from "mongoose";
 import { Response, Request } from "express"
 
