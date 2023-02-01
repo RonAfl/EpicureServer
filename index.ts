@@ -4,12 +4,12 @@ import express from 'express';
 const app = express();
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_ACCESS_TOKEN}@${process.env.DB_HOST}/?retryWrites=true&w=majority`;
-const bodyParser= require('body-parser');
-const cors = require('cors');
+import bodyParser from 'body-parser';
+import cors from 'cors';
 const port = 3000;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_ACCESS_TOKEN}@${process.env.DB_HOST}/?retryWrites=true&w=majority`;
 
-const apiRoutes = require('./server/api/apiRoutes');
+import apiRoutes from './server/api/apiRoutes';
 app.set("port", port);
 app.use(cors());
 app.use(bodyParser.json());
@@ -26,7 +26,7 @@ app.listen(port,() =>{
 const connection = async () => {
     await mongoose.connect(uri)
         .then(() => {
-            console.log("connected");
+            console.log("SERVER repicure Connected");
         })
 }
 
