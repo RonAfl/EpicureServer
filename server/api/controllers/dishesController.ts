@@ -22,33 +22,25 @@ export default class dishesController {
     }
 
     postDishes = async (req: Request, res: Response, next: NextFunction) => {
-        const headers = req.headers;
-        const token: string = <string>headers.token;
-        jwt.verify(token, `${process.env.ACCESS_TOKEN_SECRET}`, async (err, decoded) => {
-            if (err) {
-                next(err);
+        try {
+            const newDish = new dishesModel({
+                name: req.body.name,
+                image: req.body.image,
+                price: req.body.price,
+                ingredients: req.body.ingredients,
+                tags: req.body.tags,
+                restaurant: req.body.restaurant,
+            });
+            if (!(newDish.name === '' || newDish.image === '' || newDish.ingredients === '' )) {
+                await this.handler.postDish(newDish);
+                res.json(newDish);
+            }else{
+                res.json({message:'empty fields'})
             }
-            else {
-                console.log(decoded);
-                try {
-                    const newDish = new dishesModel({
-                        name: req.body.name,
-                        image: req.body.image,
-                        price: req.body.price,
-                        ingredients: req.body.ingredients,
-                        tags: req.body.tags,
-                        restaurant: req.body.restaurant,
-                    });
-                    console.log(newDish);
-                    await this.handler.postDish(newDish);
-                    res.json(newDish);
 
-                } catch (e: any) {
-                    next(e);
-                }
-            }
-        })
-
+        } catch (e: any) {
+            next(e);
+        }
     }
 
     getById = async (req: Request, res: Response, next: NextFunction) => {
@@ -69,46 +61,24 @@ export default class dishesController {
         const price = req.body.price;
         const tags = req.body.tags;
         const restaurant = req.body.restaurant;
-        // console.log(1,id,2,dish_name,3,ingredients,4,image,5,price,6,tags,7,restaurant)
-        const headers = req.headers;
-        const token: string = <string>headers.token;
-        jwt.verify(token, `${process.env.ACCESS_TOKEN_SECRET}`, async (err, decoded) => {
-            if (err) {
-                next(err);
-            }
-            else {
-                console.log(decoded);
-                try {
-                    await this.handler.updateDishNameById(id, dish_name, ingredients, image, price, tags, restaurant);
-                    res.json({ status: true });
-                } catch (e: any) {
-                    next(e);
-                }
-            }
-        })
 
+        try {
+            await this.handler.updateDishNameById(id, dish_name, ingredients, image, price, tags, restaurant);
+            res.json({ status: true });
+        } catch (e: any) {
+            next(e);
+        }
     }
 
     deleteDishById = async (req: Request, res: Response, next: NextFunction) => {
-        const headers = req.headers;
-        const token: string = <string>headers.token;
-        jwt.verify(token, `${process.env.ACCESS_TOKEN_SECRET}`, async (err, decoded) => {
-            if (err) {
-                next(err);
-            }
-            else {
-                console.log(decoded);
-                try {
-                    const id = req.params.id;
-                    await this.handler.deleteById(id);
-                    res.json({ status: true });
-                } catch (e: any) {
-                    next(e);
-                }
-            }
-        })
 
-      
+        try {
+            const id = req.params.id;
+            await this.handler.deleteById(id);
+            res.json({ status: true });
+        } catch (e: any) {
+            next(e);
+        }
     }
 
     getDishesBySearchString = async (req: Request, res: Response, next: NextFunction) => {

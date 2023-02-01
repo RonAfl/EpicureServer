@@ -39,29 +39,25 @@ export default class chefController {
     }
 
     postChefs = async (req: Request, res: Response, next: NextFunction) => {
-        const headers = req.headers;
-        const token: string = <string>headers.token;
-        jwt.verify(token, `${process.env.ACCESS_TOKEN_SECRET}`, async (err, decoded) => {
-            if (err) {
-                next(err);
+        try {
+            const newChef = new chefsModel({
+                name: req.body.name,
+                image: req.body.image,
+                description: req.body.description,
+                weekChef: req.body.weekChef
+            });
+            if(!(newChef.name === '' || newChef.image === '' || newChef.description === '')) {
+                await this.handler.postChef(newChef);
+                res.json(newChef);
+            }else{
+                res.json({message:'please fill all required fields'})
             }
-            else {
-                try {
-                    const newChef = new chefsModel({
-                        name: req.body.name,
-                        image: req.body.image,
-                        description: req.body.description,
-                        weekChef: req.body.weekChef
-                    });
-                    console.log(decoded);
-                    await this.handler.postChef(newChef);
-                    res.json(newChef);
-                } catch (e: any) {
-                    next(e);
-                }
-            }
-        })
+           
+        } catch (e: any) {
+            next(e);
+        }
     }
+
 
     updateById = async (req: Request, res: Response, next: NextFunction) => {
         const id = req.params.id;
@@ -69,48 +65,30 @@ export default class chefController {
         const description = req.body.description;
         const image = req.body.image;
         const weekChef = req.body.weekChef;
-        const headers= req.headers;
-        const token:string = <string>headers.token;
-        jwt.verify(token, `${process.env.ACCESS_TOKEN_SECRET}`, async (err, decoded) => {
-            if(err)
-            {
-                next(err);
-            }
-            else{
-                console.log(decoded);
-                try {
-                    await this.handler.updateChefNameById(id, name, description, image, weekChef);
-                    res.json({ status: true });
-                } catch (e: any) {
-                    next(e);
-                }
-            }
-        })
-
+        // console.log(2,'in controller')
+        try {
+            const user = await this.handler.updateChefNameById(id, name, description, image, weekChef);
+            res.json(user);
+        } catch (e: any) {
+            next(e);
+        }
     }
+
+
+
 
     deleteChefById = async (req: Request, res: Response, next: NextFunction) => {
         //console.log(1, 'In chef controller');
         const id = req.params.id;
-        const headers= req.headers;
-        const token:string = <string>headers.token;
-        jwt.verify(token, `${process.env.ACCESS_TOKEN_SECRET}`, async (err, decoded) => {
-            if(err)
-            {
-                next(err);
-            }
-            else{
-                console.log(decoded);
-                try {
-                    //console.log(2, 'In chef controller -> try');
-                    await this.handler.deleteById(id);
-                    res.json({ status: true });
-                } catch (e: any) {
-                    next(e);
-                }
-            }
-        })
+        try {
+            //console.log(2, 'In chef controller -> try');
+            await this.handler.deleteById(id);
+            res.json({ status: true });
+        } catch (e: any) {
+            next(e);
+        }
     }
+
 
 
     getChefsBySearchString = async (req: Request, res: Response, next: NextFunction) => {

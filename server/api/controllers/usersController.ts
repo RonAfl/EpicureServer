@@ -11,7 +11,6 @@ export default class UsersController {
         this.handler = new usersHandler;
     }
 
-    
     getUsers = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const headers = req.headers;

@@ -1,0 +1,30 @@
+[
+    {
+        "name": "repicure",
+        "script": "index.ts",
+        "env": {
+            "NODE_ENV": "production",
+            "PORT": 3000
+        },
+        "instances": 2,
+        "exec_mode": "cluster",
+        "log_date_format": "YYYY-MM-DD HH:mm:ss",
+        "error_file": "/var/log/repicure/error.log",
+        "out_file": "/var/log/repicure/out.log",
+        "merge_logs": true
+    },
+    {
+        "name": "adminui",
+        "script": "main.ts",
+        "env": {
+            "NODE_ENV": "production",
+            "PORT": 3000
+        },
+        "instances": 2,
+        "exec_mode": "cluster",
+        "log_date_format": "YYYY-MM-DD HH:mm:ss",
+        "error_file": "/var/log/adminui/error.log",
+        "out_file": "/var/log/adminui/out.log",
+        "merge_logs": true
+    }
+]
