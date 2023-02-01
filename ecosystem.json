@@ -2,7 +2,7 @@
     "apps": [
         {
             "name": "repicure",
-            "script": "index.ts",
+            "script": "./dist/index.js",
             "env": {
                 "NODE_ENV": "development",
                 "PORT": 3000
@@ -32,7 +32,7 @@
 
             "ssh_options": "StrictHostKeyChecking=no",
 
-			"post-deploy": "mkdir -p logs && npm i && pm2 reload ecosystem.json --env production",
+			"post-deploy": "mkdir -p logs && npm i && tsc && pm2 reload ecosystem.json --env production",
 
 			"pre-deploy-local": "echo 'Deploying code to servers'",
 			"env": {
