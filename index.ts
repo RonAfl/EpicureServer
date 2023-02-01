@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+mongoose.set('strictQuery', true);
 const port = 3000;
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_ACCESS_TOKEN}@${process.env.DB_HOST}/?retryWrites=true&w=majority`;
 
