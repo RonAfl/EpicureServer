@@ -24,7 +24,6 @@ app.listen(port,() =>{
     }
 )
 
-console.log(`${process.env.DB_USER}`);
 
 const connection = async () => {
     await mongoose.connect(uri)
