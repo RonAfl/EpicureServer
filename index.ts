@@ -12,7 +12,10 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@$${proc
 
 import apiRoutes from './server/api/apiRoutes';
 app.set("port", port);
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: '*',
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false})); 
 app.use('/api', apiRoutes);
