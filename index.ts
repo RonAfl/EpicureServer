@@ -5,14 +5,14 @@ const app = express();
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import cors from 'cors';
+//import cors from 'cors';
 mongoose.set('strictQuery', true);
 const port = 3000;
 const uri = `mongodb+srv://ronaflalo:1D4rQaqmXMUYNbR3@$epicurecluster.4rpgpg0.mongodb.net/?retryWrites=true&w=majority`;
 
 import apiRoutes from './server/api/apiRoutes';
 app.set("port", port);
-app.use(cors());
+//app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false})); 
 app.use('/api', apiRoutes);
