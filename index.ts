@@ -33,6 +33,7 @@ const connection = async () => {
         await mongoose.connect(uri)
         .then(() => {
             console.log("SERVER epicure Connected");
+            console.log(uri);
         })
     }catch{
         console.log('something went wrong');
