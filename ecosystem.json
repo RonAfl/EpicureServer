@@ -1,7 +1,7 @@
 {
     "apps": [
         {
-            "name": "repicure",
+            "name": "Epicure",
             "script": "./dist/index.js",
             "env": {
                 "NODE_ENV": "development",
@@ -10,18 +10,18 @@
             "instances": 2,
             "exec_mode": "cluster",
             "log_date_format": "YYYY-MM-DD HH:mm:ss",
-            "error_file": "/var/log/repicure/error.log",
-            "out_file": "/var/log/repicure/out.log",
+            "error_file": "/var/log/Epicure/error.log",
+            "out_file": "/var/log/Epicure/out.log",
             "merge_logs": true
         }
     ],
 
     "deploy" : {
 		"production": {
-			"key": "~/.ssh/epicureR-key.pem",
+			"key": "~/.ssh/EpicureRon-Key.pem",
 			"user": "ubuntu",
 
-			"host": ["ec2-18-183-6-145.ap-northeast-1.compute.amazonaws.com"],
+			"host": ["ec2-54-199-178-180.ap-northeast-1.compute.amazonaws.com"],
 
 			"ref": "origin/dev",
 
