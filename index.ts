@@ -8,7 +8,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 mongoose.set('strictQuery', true);
 const port = 3000;
-const uri = `mongodb+srv://ronaflalo:1D4rQaqmXMUYNbR3@$epicurecluster.4rpgpg0.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@$${process.env.DB_PATH}/?retryWrites=true&w=majority`;
 
 import apiRoutes from './server/api/apiRoutes';
 app.set("port", port);
