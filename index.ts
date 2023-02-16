@@ -29,10 +29,14 @@ app.listen(port,() =>{
 
 
 const connection = async () => {
-    await mongoose.connect(uri)
+    try{
+        await mongoose.connect(uri)
         .then(() => {
             console.log("SERVER repicure Connected");
         })
+    }catch{
+        console.log('something went wrong');
+    }
 }
 
 connection();
